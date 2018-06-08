@@ -27,10 +27,11 @@
             <div class="checkbox">
             {% for model in pagination.items %}
                 <label>
-                    <input type="checkbox" name="{{ model.title }}" value="{{ model.id }}">
-                {% if model == 'user' %}
-                    {{ model.title }}
+                {% if model_name == 'user' %}
+                    <input type="checkbox" name="{{ model.name }}" value="{{ model.id }}">
+                    <span>{{ model.name }}</span> | <span>{{ model.email }}</span>
                 {% else %}
+                    <input type="checkbox" name="{{ model.title }}" value="{{ model.id }}">
                     <a href="{{ url_for('.editor_model', model_name = model_name, model_id = model.id) }}">{{ model.title }}</a>
                 {% endif %}
                 </label>
