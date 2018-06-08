@@ -60,14 +60,14 @@
                 {% endfor %}
                 </div>
 
-                <h4>classify</h4>
+                <h4>archive</h4>
                 <div class="radio">
                 {% for archive in archive_list %}
                     <label>
                         {% if model and archive.id == model.archive.id %}
-                            <input type="radio" checked name="classify" value="{{ model.archive.id }}"> {{ model.archive.title }}
+                            <input type="radio" checked name="archive" value="{{ model.archive.id }}"> {{ model.archive.title }}
                         {% else %}
-                            <input type="radio" name="classify" value="{{ archive.id }}"> {{ archive.title }}
+                            <input type="radio" name="archive" value="{{ archive.id }}"> {{ archive.title }}
                         {% endif %}
                     </label>
                 {% endfor %}
