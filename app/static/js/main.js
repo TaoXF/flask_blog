@@ -353,6 +353,11 @@ $(function () {
         event.preventDefault();
         init_article($(this));
     });
+    
+    main_wrap.on('click', 'a[data-article]', function (event) {
+        event.preventDefault();
+        init_article($(this));
+    });
 
     // 页面滚动到底部时加载 留言区
     $(window).scroll(function () {
