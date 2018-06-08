@@ -1,0 +1,42 @@
+{% extends "base_body.html" %}
+
+{% block head %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename = '/static/js/main.js') }}"></script>
+{% endblock %}
+
+{% block main %}
+    <main id="main-wrap">
+        <!-- 路径导航 -->
+        <ol class="breadcrumb">
+          <li class="active">首 页</li>
+        </ol>
+        <!-- 文章列表 -->
+    {% for article in pagination.items %}
+        <article class="article">
+            <h1><a data-article href="{{ url_for('.article', article_id = article.id) }}">{{ article.title }}</a></h1>
+            <div class="summary">{{ article.content|md|striptags|slice(0, 160)}}...</div>
+            <div class="article-meta">
+                <a data-article-list href="{{ url_for('.article_list', model_name = 'classify', model_id = article.classify.id) }}" class="article-classify">{{ article.classify.title }}</a>
+                <span> / </span>
+                <ul class="article-tags">
+                {% for tags in article.tags_list.all() %}
+                    <li><a data-article-list href="{{ url_for('.article_list', model_name = 'tags', model_id = tags.id )}}">{{ tags.title }}</a></li>
+                {% endfor %}
+                </ul>
+                <span> / </span>
+                <time>{{ article.create_at|datetime }}</time>
+            </div>
+            <div class="article-button">
+                <a data-article href="{{ url_for('.article', article_id = article.id) }}">阅读全文 >></a>
+            </div>
+        </article>
+    {% endfor %}
+
+    {% import "page_macros.html" as macros %}
+        <!-- 分页 -->
+    {% if pagination %}
+        {{ macros.pagination_widget(pagination, 'default', '.article_list') }}
+    {% endif %}
+    </main>
+{% endblock %}

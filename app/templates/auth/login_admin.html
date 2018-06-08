@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{{ url_for('static', filename='/static/js/sha1.min.js') }}"></script>
+</head>
+<body>
+    <!-- admin 登录页 -->
+    <form method="post" action="{{ url_for('auth.admin_login') }}" onsubmit="return check_form()">
+        <label>输入登录密码
+            <input id="admin" type="password" name="admin">
+        </label>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit">submit</button>
+    </form>
+    <script>
+       function check_form () {
+           var admin = document.getElementById("admin");
+           admin.value = CryptoJS.SHA1(admin.value).toString();
+           return true;
+       }
+    </script>
+</body>
+</html>

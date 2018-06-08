@@ -1,0 +1,224 @@
+h1, h2, h3, h4, h5, h6{
+    margin: 0;
+    padding: 0;
+}
+nav.navbar{
+    border-radius: 0;
+}
+
+/* 导航条下拉框样式 */
+ul.dropdown-menu{
+    background-color: #000;
+}
+ul.dropdown-menu > li > a{
+    color: #fff;
+    transition: color 0.6s, background-color 0.6s;
+}
+
+/* 侧边栏 */
+#aside-wrap > section{
+    padding: 20px;
+}
+
+#aside-wrap > section > h3{
+    margin-bottom: 10px;
+}
+
+/* 标签 */
+#tags-wrap > a{
+    background-color: #000;
+    transition: color 0.5s, background-color 0.5s;
+}
+#tags-wrap > a > .badge{
+    background-color: #fff;
+    color: #000;
+}
+#tags-wrap > a:hover{
+    color: #000;
+    background-color: #fff;
+}
+.label{
+    display: inline-block;
+    margin: 2px;
+}
+
+/* 归档 */
+#archive{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#archive > li > a, #classify > li > a{
+    color: #000;
+}
+
+/* 文章列表 */
+.article{
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.article > h1{
+    font-size: 0;
+}
+.article > h1 > a{
+    position: relative;
+    display: inline-block;
+    color: #444;
+    font-size: 24px;
+    font-weight: 400;
+}
+.article > h1 > a:hover{
+    text-decoration: none;
+}
+.article > h1 > a:before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 100%;
+    background: #000;
+    transform: scale(0);
+    transition: all 0.5s;
+}
+.article > h1 > a:hover:before{
+    transform: scale(1);
+}
+
+.article > .summary{
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-top: 5px;
+}
+
+.article-meta{
+    color: #999;
+    margin: 5px 0;
+}
+.article-classify, .article-classify:hover{
+    color: inherit;
+}
+
+.article-tags{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+.article-tags > li{
+    display: inline-block;
+}
+.article-tags > li > a{
+    color: inherit;
+}
+
+.article-button > a{
+    color: #000000;
+}
+
+/* 分页 */
+#pager > #pagination > li > a{
+    color: #333;
+}
+#pager > .pagination > .active > a, #pager > .pagination > .active > a:focus,
+#pager > .pagination > .active > a:hover, #pager > .pagination > .active > span,
+#pager > .pagination > .active > span:focus, #pager > .pagination > .active > span:hover{
+    background-color: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+/* loading */
+#loading, #loading2{
+    display: none;
+    position: absolute;
+    left: 50%;
+}
+
+/* 文章 */
+pre{
+    padding: 0;
+}
+#article > h2{
+    font-size: 26px;
+}
+
+#article > .article-meta{
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+#article > .content{
+    padding: 20px 0;
+    border-bottom: 2px solid #eee;
+    line-height: 1.6em;
+}
+
+/* 留言 */
+#comment-wrap{
+    padding: 20px 0;
+
+}
+
+#comment-wrap > h3{
+    padding-bottom: 10px;
+}
+
+#comment-wrap > .input-wrap{
+    padding-bottom: 20px;
+}
+
+.input-wrap > p{
+    margin: 0;
+    color: #999;
+}
+
+#message_wrap > ul{
+    border-top: 2px solid #eee;
+    padding: 20px 0;
+    list-style: none;
+    margin: 0;
+}
+
+#message_wrap > ul > li{
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+#message_wrap > ul > li > .img-wrap{
+    width: 60px;
+    position: absolute;
+}
+
+#message_wrap > ul > li > .body{
+    padding-left: 80px;
+    min-height: 60px;
+}
+
+.body > .message-meta{
+    height: 30%;
+}
+
+.message-meta > span{
+    padding: 0 4px;
+    margin-right: 4px;
+    border-radius: 0.2em;
+    background-color: #666;
+    font-weight: 600;
+    color: #fff;
+}
+
+.message-meta > time{
+    color: #999;
+}
+
+.btn, .btn:focus{
+    outline: none;
+}
+.error{
+    display: none;
+    font-size: 10px;
+    color: red;
+}

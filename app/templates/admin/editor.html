@@ -1,0 +1,119 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block head %}
+    {{ super() }}
+
+    <!-- 上传图片时需要的token -->
+    <meta name="csrf_token" content="{{ csrf_token() }}"/>
+
+    <link rel="stylesheet" href="{{url_for('static',filename = '/static/css/editormd.min.css')}}">
+    <script src="{{url_for('static',filename = 'static/js/editormd.min.js')}}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <ol class="breadcrumb">
+                <li><a href="{{ url_for('.index') }}">admin</a></li>
+                <li><a href="{{ url_for('.models', model_name = model_name) }}">{{ model_name }}</a></li>
+                <li class="active">{{ action }} {{ model_name }}</li>
+            </ol>
+        {% if model %}
+            <form method="post" action="{{ url_for('.editor_model', model_name = model_name, model_id = model.id) }}">
+        {% else %}
+            <form method="post" action="{{ url_for('admin.editor_model', model_name = model_name) }}">
+        {% endif %}
+                <h4>title</h4>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="title"
+                    {% if model %} value="{{ model.title }}"{% endif %}>
+                </div>
+            {% if model_name == 'article' %}
+                <h4>content</h4>
+                <div class="form-group" id="editormd">
+                    <textarea name="content" style="display:none;">{{ model.content }}</textarea>
+                </div>
+                <h4>tags</h4>
+                <div class="checkbox">
+                <!-- 生成所有标签 -->
+                {% for tags in tags_list %}
+                    <label>
+                        {% if model and tags in model.tags_list.all() %} <!-- 将已关联的标签加上checked -->
+                            <input type="checkbox" name="tags" checked value="{{ tags.id }}"> {{ tags.title }}
+                        {% else %}
+                            <input type="checkbox" name="tags" value="{{ tags.id }}"> {{ tags.title }}
+                        {% endif %}
+                    </label>
+                {% endfor %}
+                </div>
+
+                <h4>classify</h4>
+                <div class="radio">
+                {% for classify in classify_list %}
+                    <label>
+                        {% if model and classify.id == model.classify.id %}
+                        <input type="radio" checked name="classify" value="{{ model.classify.id }}"> {{ model.classify.title }}
+                        {% else %}
+                        <input type="radio" name="classify" value="{{ classify.id }}"> {{ classify.title }}
+                        {% endif %}
+                    </label>
+                {% endfor %}
+                </div>
+
+                <h4>classify</h4>
+                <div class="radio">
+                {% for archive in archive_list %}
+                    <label>
+                        {% if model and archive.id == model.archive.id %}
+                            <input type="radio" checked name="classify" value="{{ model.archive.id }}"> {{ model.archive.title }}
+                        {% else %}
+                            <input type="radio" name="classify" value="{{ archive.id }}"> {{ archive.title }}
+                        {% endif %}
+                    </label>
+                {% endfor %}
+                </div>
+
+            {% endif %}
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="btn">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="submit" class="btn btn-primary">保 存</button>
+                    <button type="submit" class="btn btn-info">保存并继续编辑</button>
+                    <button type="submit" class="btn btn-success">保存并继续添加</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- markdown 编辑器 -->
+    <script>
+        var testEditor;
+        $(function(){
+            testEditor=editormd("editormd",{
+                width:'100%',
+                height:'500px',
+                syncScrolling : "single",
+                path:"{{url_for('static',filename='/static/editormd/lib/')}}",
+
+                // 启动本地图片上传功能
+                imageUpload: true,
+                imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL : "{{url_for('admin.upload')}}"
+            });
+        })
+    </script>
+    <!-- 判断是点击的那一个按钮 -->
+    <script>
+        var submit = $('input[name="btn"]');
+        $('.btn-group > .btn:eq(0)').click(function () {
+            submit.val('1');
+        });
+        $('.btn-group > .btn:eq(1)').click(function () {
+            submit.val('2');
+        });
+        $('.btn-group > .btn:eq(2)').click(function () {
+            submit.val('3');
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,36 @@
+body{
+    background-color: #f1f1f1;
+}
+
+.navbar{
+    margin-top: 20%;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.form-wrap{
+    background-color: #fff;
+
+    border: 2px solid #000000;
+    padding: 5%;
+}
+
+.form-group>span{
+    display: none;
+    color: red;
+    font-size: 10px;
+    padding-left: 10px;
+}
+
+.error{
+    background-color: #f2dede;
+    border-color: #f2dede;
+}
+
+.auth_code_wrap{
+    margin-top: 5px;
+}
+.auth_code_wrap>span{
+    color: #666;
+    padding-left: 5px;
+}

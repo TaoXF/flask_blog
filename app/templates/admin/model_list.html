@@ -1,0 +1,65 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block head %}
+    <meta id="csrf" name="csrf_token" content="{{ csrf_token() }}"/>
+    <meta id="model_name" content="{{ model_name }}">
+    {{ super() }}
+    <script src="{{ url_for('static', filename = '/static/js/admin.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <ol class="breadcrumb">
+              <li><a href="{{ url_for('.index') }}">admin</a></li>
+              <li class="active">{{ model_name }}</li>
+            </ol>
+
+            <div class="perform">
+                <button id="delete_btn" class="btn btn-danger" data-toggle="modal" data-target="#modal">点击删除</button>
+            {% if model_name != 'user' %}
+                <a id="add_btn" class="btn btn-primary" href="{{ url_for('.editor_model', model_name = model_name, action = 'add') }}">添加新的{{ model_name }}</a>
+            {% endif %}
+            </div>
+            <div class="all_check-wrap">
+                <button id="all_check" class="btn btn-info btn-xs">全 选</button> 已选中 <span id="checkbox_count">0</span> 个 {{ model_name }}
+            </div>
+            <div class="checkbox">
+            {% for model in pagination.items %}
+                <label>
+                    <input type="checkbox" name="{{ model.title }}" value="{{ model.id }}">
+                {% if model == 'user' %}
+                    {{ model.title }}
+                {% else %}
+                    <a href="{{ url_for('.editor_model', model_name = model_name, model_id = model.id) }}">{{ model.title }}</a>
+                {% endif %}
+                </label>
+            {% endfor %}
+            </div>
+        {% import "page_macros.html" as macros %}
+            {% if pagination %}
+                {{ macros.pagination_widget(pagination, model_name, '.models') }}
+            {% endif %}
+        </div>
+    </div>
+    <!-- 模态框 -->
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">你确认要删除选中 {{ model_name }} 吗?</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="delete_models">
+                    <!-- model -->
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button id="sure" class="btn btn-danger">确 认</button>
+                <button class="btn btn-info" data-dismiss="modal">Close</button>
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+{% endblock %}

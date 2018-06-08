@@ -1,0 +1,57 @@
+{% extends 'admin/base_admin.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <main class="content-wrap">
+                    <ol class="breadcrumb">
+                      <li class="active">admin</li>
+                    </ol>
+                    <!-- model_list -->
+                    <ul class="models">
+                    {% for model in model_names %}
+                        <li>
+                            <a class="model_name" href="{{ url_for('.models', model_name = model ) }}">{{ model }}</a>
+                        {% if model != 'user' %}
+                            <ul class="action">
+                                <li>
+                                    <a href="{{ url_for('.models', model_name = model) }}"><span class="glyphicon glyphicon-pencil"></span> 修改</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('.editor_model', model_name = model) }}"><span class="glyphicon glyphicon-plus"></span> 增加</a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                        </li>
+                    {% endfor %}
+                    </ul>
+
+                </main>
+            </div>
+
+            <!-- aside -->
+            <div class="col-md-4 hidden-sm hidden-xs">
+                <aside class="recent-actions-module">
+                    <h2>最近动作</h2>
+                    <ul>
+                        {% for action in recent_action %}
+                        <li>
+                            <span>
+                            {% if action[0] == 1 %}
+                                <span class="glyphicon glyphicon-plus"></span>
+                            {% elif action[0] == 2 %}
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            {% else %}
+                                <span class="glyphicon glyphicon-remove"></span>
+                            {% endif %}
+                             {{ action[1] }}</span>
+                            <span class="belong"> {{ action[2] }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </aside>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base_head.html' %}
+{% block title %}register{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/static/css/auth.css') }}">
+    <script src="{{ url_for('static', filename='/static/js/auth.js') }}"></script>
+    <script src="{{ url_for('static', filename='/static/js/sha1.min.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <nav class="navbar navbar-inverse">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="nav-collapse">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a href="{{ url_for('main.index') }}"><span class="glyphicon glyphicon-home"></span> 回到首页</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('auth.register') }}"> 注 册</a>
+                                </li>
+                                <li class="active">
+                                    <a href="javascript:"> 登 录</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="form-wrap">
+                    <form id="login_form">
+                        <div class="form-group">
+                            <label>Email address</label> <span>错误信息</span>
+                            <input type="text" id="email" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label> <span>错误信息</span>
+                            <input type="password" id="pwd" class="form-control" placeholder="Password">
+                        </div>
+                        <input type="hidden" id="csrf" value="{{ csrf_token() }}">
+                        <button id="submit" class="btn btn-info">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}}

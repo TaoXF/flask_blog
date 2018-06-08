@@ -1,0 +1,93 @@
+{% extends "base_body.html" %}
+<!-- 测试用 -->
+{% block head %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename = '/static/js/main.js') }}"></script>
+{% endblock %}
+
+{% block main %}
+    <main id="main-wrap">
+        <ol class="breadcrumb">
+          <li><a href="{{ url_for('.index') }}">首 页</a></li>
+          <li class="active">{{ article.title }}</li>
+        </ol>
+        <article id="article">
+            <h2>{{ article.title }}</h2>
+            <div class="article-meta">
+                <a data-article-list href="{{ url_for('.article_list', model_name = 'classify',
+                model_id = article.classify.id ) }}" class="article-classify">{{ article.classify.title }}</a>
+                <span> / </span>
+                <ul class="article-tags">
+                {% for tags in article.tags_list.all() %}
+                    <li><a data-article-list href="{{ url_for('.article_list', model_name = 'tags',
+                            model_id = tags.id) }}">{{ tags.title }}</a></li>
+                {% endfor %}
+                </ul>
+                <span> / </span>
+                <time>{{ article.create_at|datetime }}</time>
+            </div>
+            <div class="content">
+                {{ article.content|md|safe }}
+            </div>
+        </article>
+
+        <div id="loading2">
+            <img src="{{ url_for('static', filename = '/static/images/loading.gif') }}" alt="loading">
+        </div>
+
+        <div id="comment-wrap">
+
+            <h3>欢迎留言</h3>
+{#            <p>还没有留言~ 赶紧抢个沙发吧n(*≧▽≦*)n</p>#}
+            <div id="message_wrap">
+                <ul>
+                    <li>
+                        <div class="img-wrap">
+                            <img src="" class="img-responsive" alt="用户头像">
+                        </div>
+                        <div class="body">
+                            <div class="message-meta">
+                                <span>user name</span>
+                                <time>2018 年 6 月 1日</time>
+                            </div>
+                            <div class="message-content">
+                                <p>127.0.0.1 - - [02/Jun/2018 16:58:10] "GET /static/css/main.css HTTP/1.1" 200 -
+                                127.0.0.1 - - [02/Jun/2018 16:58:10] "GET /static/js/main.js HTTP/1.1" 200 -</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-wrap">
+                            <img src="" class="img-responsive" alt="用户头像">
+                        </div>
+                        <div class="body">
+                            <div class="message-meta">
+                                <span>#1</span>
+                                <span>user name</span>
+                                <time>2018 年 6 月 1日</time>
+                            </div>
+                            <div class="message-content">
+                                <p>127.0.0.1 - - [02/Jun/2018 16:58:10] "GET /static/css/main.css HTTP/1.1" 200 -
+                                127.0.0.1 - - [02/Jun/2018 16:58:10] "GET /static/js/main.js HTTP/1.1" 200 -</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <from>
+                <textarea id="comment" style="resize:none" class="form-control" rows="5"
+                          placeholder="来都来了, 不留下点什么吗？(>▽<)"></textarea>
+                <input type="hidden" name="current_user_id">
+                <input type="hidden" name="article_id">
+                {% if current_user.is_authenticated %}
+                    <button id="comment_btn" class="btn btn-default btn-xs">提交</button>
+                {% else %}
+                    <p>需要登录之后才能提交留言</p>
+                {% endif %}
+            </from>
+        </div>
+
+    </main>
+{% endblock %}

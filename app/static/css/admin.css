@@ -1,0 +1,115 @@
+.navbar{
+    border-radius: 0;
+}
+
+.recent-actions-module{
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.recent-actions-module > h2{
+    margin: 0;
+    font-size: 24px;
+    font-weight: 50;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #4e4e4e;
+}
+
+.recent-actions-module > ul{
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.recent-actions-module > ul > li{
+    margin-bottom: 5px;
+}
+
+.belong{
+    color: #999;
+    display: block;
+    text-indent: 1.5em;
+}
+
+/* 字体图标 */
+.glyphicon{
+   font-size: 10px;
+}
+.glyphicon-pencil{
+    color: orange;
+}
+.glyphicon-plus{
+    color: green;
+}
+.glyphicon-remove{
+    color: red;
+}
+
+/* content */
+.content-wrap .models{
+    width: 100%;
+}
+.content-wrap .models>li{
+    padding: 6px 0 6px 1em;
+    border-bottom: 1px solid #eaeaea;
+}
+.content-wrap .models, .content-wrap .action{
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.content-wrap .action{
+    float: right;
+}
+
+.content-wrap .action>li{
+    display: inline-block;
+    padding-right: 1.5em;
+}
+
+.models-wrap{
+    border: 1px solid #eaeaea;
+}
+
+
+/* model_list 页 */
+.perform{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+.all_check-wrap{
+    margin-top: 10px;
+    color: #999;
+}
+.btn, .btn:focus{
+    outline: none;
+}
+
+#all_check, #all_check:focus{
+    outline:none;
+    margin-right: 10px;
+    border-color: #5bc0de;
+}
+
+#add_btn{
+    float: right;
+}
+
+.checkbox > label, .radio > label{
+    display: block;
+    font-size: 16px;
+    padding-bottom: 6px;
+}
+/* 模态框 */
+.delete_models{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 编辑页 */
+.btn-group{
+    margin: 20px 0;
+}

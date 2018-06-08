@@ -1,0 +1,150 @@
+{% extends 'base_head.html' %}
+
+{% block head %}
+    <meta _csrf="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/static/css/main.css')}}">
+{% endblock %}
+
+{% block body %}
+<body>
+    <!-- 导航条 -->
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">LOGO</a>
+            </div>
+            <div class="collapse navbar-collapse" id="nav-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ url_for('.index') }}"><span class="glyphicon glyphicon-home"></span> 首 页</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-duplicate"></span> 分 类
+                        </a>
+                        <ul class="dropdown-menu">
+                        {% for classify in classify_list %}
+                            <li><a data-article-list href="{{ url_for('.article_list', model_name = 'classify', model_id = classify.id) }}">{{ classify.title }}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-tags"></span> 标 签</a>
+                        <ul class="dropdown-menu">
+                        {% for tags in tags_list %}
+                            <li><a data-article-list href="{{ url_for('.article_list', model_name = 'tags', model_id = tags.id) }}">{{ tags.title }}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-list-alt"></span> 归 档</a>
+                        <ul class="dropdown-menu">
+                        {% for archive in archive_list %}
+                            <li><a data-article-list href="{{ url_for('.article_list', model_name = 'archive', model_id = archive.id) }}">{{ archive.title }}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:" data-toggle="modal" data-target="#about_modal">
+                            <span class="glyphicon glyphicon-leaf"></span> 关 于</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_authenticated %}
+                        <li>
+                            <a href="javascript:"><span class="glyphicon glyphicon-user"></span> {{ current_user.name }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('auth.logout') }}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ url_for('auth.login') }}">登 录</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('auth.register') }}">注 册</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- 模态框 -->
+    <div class="modal fade" id="about_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+      t          <div class="modal-header">
+                    <h3>关 于 本 站</h3>
+                </div>
+                <div class="modal-body">
+                    <p>占个坑先～～以后再填</p>
+                </div>
+                <div class="modal-footer">
+                    footer
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div id="loading">
+                    <img src="{{ url_for('static', filename = '/static/images/loading@2x.gif') }}" alt="">
+                </div>
+                <!-- main -->
+                {% block main %}
+
+                {% endblock%}
+            </div>
+            <!-- 侧栏 -->
+            <div class="col-md-4 hidden-sm hidden-xs">
+                <aside id="aside-wrap">
+                    <section>
+                        <h3>分类</h3>
+                        <ul class="list-group" id="classify">
+                        {% for classify in classify_list %}
+                            <li class="list-group-item">
+                                <span class="badge">{{ classify.article_list.count() }}</span>
+                                <a data-article-list href="{{ url_for('.article_list', model_name = 'classify', model_id = classify.id) }}">{{ classify.title }}</a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </section>
+                    <section id="tags-wrap">
+                        <h3>标签</h3>
+                    {% for tags in tags_list %}
+                        <a data-article-list href="{{ url_for('.article_list', model_name = 'tags', model_id = tags.id) }}" class="label label-default">{{ tags.title }}
+                        <span class="badge">{{ tags.article_list.count() }}</span></a>
+                    {% endfor %}
+                    </section>
+                    <section>
+                        <h3>归档</h3>
+                        <ul id="archive">
+                        {% for archive in archive_list %}
+                            <li><a data-article-list href="{{ url_for('.article_list', model_name = 'archive', model_id = archive.id) }}">{{ archive.title }}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+</body>
+{% endblock %}
